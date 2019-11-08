@@ -1,0 +1,27 @@
+package WebRestFull;
+
+
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
+import dom.Categoria;
+import dom.PersistenceManagerCategoria;
+
+@Path("categoria")
+public class ServiceCategoria {
+
+	PersistenceManagerCategoria pMC = new PersistenceManagerCategoria();
+	
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getCategoriaById(String id) {
+		Categoria c = pMC.findById(Integer.parseInt(id));
+		if(c != null) 
+			return c.getNombreCategoria();
+		else 
+			return "no se obtuvo nada";
+	}
+
+}

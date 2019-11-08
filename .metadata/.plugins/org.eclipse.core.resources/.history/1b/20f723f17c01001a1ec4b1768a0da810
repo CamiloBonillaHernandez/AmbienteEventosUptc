@@ -1,0 +1,11 @@
+package WebRestFull;
+
+import dom.PersistenceManagerCategoria;
+
+public class ServiceCategoria {
+	
+	PersistenceManagerCategoria pMC = new PersistenceManagerCategoria();
+	
+	
+
+}

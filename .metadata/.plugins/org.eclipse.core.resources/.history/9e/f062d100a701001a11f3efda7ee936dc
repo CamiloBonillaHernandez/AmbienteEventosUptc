@@ -1,0 +1,17 @@
+package Test;
+
+import dom.Categoria;
+import WebRestFull.ServiceCategoria;
+
+public class TestCategoriaConsola {
+	
+	public static void main(String[] args) {
+//		ServiceCategoria sCat = new ServiceCategoria();
+//		sCat.getCategoriaById("7");
+		
+		System.out.println("----");
+		System.out.println("Add Categoria");
+		Categoria c = new Categoria("cat-Z");
+	}
+
+}

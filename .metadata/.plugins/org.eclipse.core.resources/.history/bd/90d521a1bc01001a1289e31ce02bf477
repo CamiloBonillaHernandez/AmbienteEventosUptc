@@ -1,0 +1,65 @@
+package WebRestFull;
+
+
+import java.util.List;
+
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
+
+import dom.Categoria;
+import dom.ManagerCategoria;
+
+@Path("categoria")
+public class ServiceCategoria {
+
+	ManagerCategoria pMC = new ManagerCategoria();
+	
+	@Path("Listar")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public String Listar() {
+		List <Categoria> categorias = pMC.listarCategorias();
+		String aux="";
+		for (int i = 0; i < categorias.size(); i++) {
+			aux += categorias.get(i).getIdCategoria().toString()+" "+ categorias.get(i).getIdCategoria() ; 
+		}
+		return aux;
+	}
+
+	@Path("ByID")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getCategoriaById(@QueryParam("id") String id) {
+		Categoria c = pMC.findById(Integer.parseInt(id));
+		if(c != null) 
+			return c.getNombreCategoria();
+		else 
+			return "no se obtuvo nada";
+	}
+	
+	@Path("ByName")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getCategoriaByName(@QueryParam("name") String name) {
+		Categoria c = pMC.findByName(name);
+		if(c != null) 
+			return c.getNombreCategoria();
+		else 
+			return "no se obtuvo nada";
+	}
+	
+	@Path("ByName")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getCategoriaByName(@QueryParam("name") String name) {
+		Categoria c = pMC.findByName(name);
+		if(c != null) 
+			return c.getNombreCategoria();
+		else 
+			return "no se obtuvo nada";
+	}
+
+}

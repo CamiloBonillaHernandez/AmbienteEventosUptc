@@ -1,0 +1,20 @@
+package Test;
+
+import dom.Categoria;
+import PresistenceManager.PersistenceManagerGeneral;
+import WebRestFull.ServiceCategoria;
+
+public class TestCategoriaConsola {
+	
+	public static void main(String[] args) {
+	//	ServiceCategoria sCat = new ServiceCategoria();
+//		sCat.getCategoriaById("7");
+		
+		PersistenceManagerGeneral pm = new PersistenceManagerGeneral();
+		System.out.println("----");
+		System.out.println("Add Categoria");
+		Categoria c = new Categoria("cat-Z");
+		pm.addCategoria(c);
+	}
+
+}

@@ -1,0 +1,110 @@
+package Persistence;
+
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
+
+import Entities.Categoria;
+
+public class PersistenceManagerCategoria {
+
+	EntityManagerFactory factory;
+
+	public PersistenceManagerCategoria() {
+		this.factory = Persistence.createEntityManagerFactory("database");
+	}
+
+	/*
+	 * Bloque de CRUD Categoria
+	 */
+
+	public void listarCategorias() {
+		EntityManager em = this.factory.createEntityManager();
+		List<Categoria> lista  = em.createQuery("select ca from Categoria ca").getResultList();
+		for (int i = 0; i < lista.size(); i++) {
+			System.out.println(lista.get(i).getNombreCategoria());
+		}
+		em.close();
+	}
+
+	public Categoria findById(int id) {
+		EntityManager em = this.factory.createEntityManager();
+		Categoria categoria = em.find(Categoria.class, id);
+		System.out.println("Categoria: "+categoria.getNombreCategoria()+ " con id: "+categoria.getIdCategoria());
+		return categoria;
+	}
+
+	public List<Categoria> findByName(String nombre) {
+		EntityManager em = this.factory.createEntityManager();
+		Query query = em.createQuery("SELECT c FROM Categoria c WHERE c.nombreCategoria =:nombre");
+		query.setParameter("nombre", nombre);
+		List<Categoria> resultList = query.getResultList();
+		for (int i = 0; i < resultList.size(); i++) {
+			System.out.println("Categoria encontrada con nombre: "+resultList.get(i).getNombreCategoria());
+		}
+		em.close();
+		
+		return resultList;
+	}
+
+	public boolean addCategoria(Categoria c) {
+		EntityManager em = this.factory.createEntityManager();
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
+		em.persist(c);
+		try {
+			tx.commit();
+			System.out.println("insertado");
+		} catch (Exception e) {
+			System.out.println("Falló la inserción");
+			return false;
+		}finally {
+			em.close();
+		}
+		return true;
+	}
+
+	public boolean updateCategoria(Categoria c) {
+		EntityManager em = this.factory.createEntityManager();
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
+		try {
+			Categoria cUpdate = em.merge(c);
+			em.persist(cUpdate);
+			tx.commit();
+			System.out.println("ACtualizado");
+		} catch (Exception e) {
+			System.out.println("falló la actualización");
+			return false;
+		}finally {
+			em.close();
+		}
+		return true;
+	}
+
+	public boolean borrarCategoria(Categoria c) {
+		EntityManager em = this.factory.createEntityManager();
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
+		try {
+			Categoria cdelete = em.merge(c);
+			em.remove(cdelete);
+			tx.commit();
+			System.out.println("Eliminado");
+		} catch (Exception e) {
+			System.out.println("falló en la eliminacion");
+			return false;
+		}finally {
+			em.close();
+		}
+		return true;
+	}
+
+
+
+}

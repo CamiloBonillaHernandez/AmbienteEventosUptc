@@ -1,0 +1,90 @@
+package WebRestFull;
+
+import java.util.List;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
+import dom.Categoria;
+import dom.ManagerCategoria;
+
+/**
+ * Clase que permite implementar metodo Rest para que el servidor pueda comunicarse por medio de servicios con la app movil
+ * una ves este desplegado, En especifico implementa los servicios de la Tabla Categoria
+ * @author camil
+ *
+ */
+
+@Path("categoria")
+public class ServiceCategoria {
+
+	ManagerCategoria pMC = new ManagerCategoria();
+	
+	@Path("Listar")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public String Listar() {
+		List <Categoria> categorias = pMC.listarCategorias();
+		String aux="";
+		for (int i = 0; i < categorias.size(); i++) {
+			aux += categorias.get(i).getIdCategoria().toString()+" "+ categorias.get(i).getNombreCategoria() ; 
+		}
+		return aux;
+	}
+
+	@Path("ByID")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getCategoriaById(@QueryParam("id") String id) {
+		Categoria c = pMC.findById(Integer.parseInt(id));
+		if(c != null) 
+			return c.getNombreCategoria();
+		else 
+			return "no se obtuvo nada";
+	}
+	
+	@Path("ByName")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getCategoriaByName(@QueryParam("name") String name) {
+		Categoria c = pMC.findByName(name);
+		if(c != null) 
+			return c.getNombreCategoria();
+		else 
+			return "no se obtuvo nada";
+	}
+	
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("Add")
+	public String addCategoria(@QueryParam("name") String name) {
+		Categoria c = new Categoria(name);
+		if(pMC.addCategoria(c)) 
+			return "añadido";
+		else 
+			return "no se inserto nada";
+	}
+	
+	@Path("Update")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public String upDateCategoria(@QueryParam("name") String name) {
+		Categoria c = new Categoria(name);
+		if(pMC.updateCategoria(c)) 
+			return name+ " update";
+		else 
+			return "sin cambios";
+	}
+	
+	@Path("delete")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public String deleteCategoria(@QueryParam("name") String name) {
+		Categoria c = new Categoria(name);
+		if(pMC.borrarCategoria(c)) 
+			return name+" eliminado";
+		else 
+			return "sin cambios";
+	}
+}
