@@ -9,6 +9,8 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
+import model.Categoria;
+
 /**
  * Clase que se encarga de gestionar la conexion y los metodos CRUD de la tabla Categoria hacia la base de Datos Mysql
  * @author camil
@@ -36,14 +38,14 @@ public class ManagerCategoria {
 	public Categoria findById(int id) {
 		EntityManager em = this.factory.createEntityManager();
 		Categoria categoria = em.find(Categoria.class, id);
-		System.out.println("Categoria: "+categoria.getNombreCategoria()+ " con id: "+categoria.getIdCategoria());
+		System.out.println("Categoria: "+categoria.getNombreC()+ " con id: "+categoria.getIdCategoria());
 		em.close();
 		return categoria;
 	}
 
 	public Categoria findByName(String nombre) {
 		EntityManager em = this.factory.createEntityManager();
-		Query query = em.createQuery("SELECT c FROM Categoria c WHERE c.nombreCategoria =:nombre");
+		Query query = em.createQuery("SELECT c FROM Categoria c WHERE c.nombreC =:nombre");
 		query.setParameter("nombre", nombre);
 		Categoria categoria= (Categoria) query.getSingleResult();
 		em.close();
@@ -72,7 +74,8 @@ public class ManagerCategoria {
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
 		try {
-			Categoria cUpdate = em.merge(c);
+			Categoria cUpdate = findById(c.getIdCategoria());
+			cUpdate = em.merge(c);
 			em.persist(cUpdate);
 			tx.commit();
 			System.out.println("Actualizado");
@@ -85,13 +88,14 @@ public class ManagerCategoria {
 		return true;
 	}
 
-	public boolean borrarCategoria(Categoria c) {
+	public boolean  borrarCategoria(Categoria c) {
 		EntityManager em = this.factory.createEntityManager();
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
 		try {
-			Categoria cdelete = em.merge(c);
-			em.remove(cdelete);
+			Categoria cDelete= findById(c.getIdCategoria());
+			cDelete = em.merge(c);
+			em.remove(cDelete);
 			tx.commit();
 			System.out.println("Eliminado");
 		} catch (Exception e) {

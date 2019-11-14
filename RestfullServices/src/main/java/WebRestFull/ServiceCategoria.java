@@ -1,12 +1,15 @@
 package WebRestFull;
 
 import java.util.List;
+
+import javax.transaction.Transactional;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
-import dom.Categoria;
+import model.Categoria;
 import dom.ManagerCategoria;
 
 /**
@@ -15,7 +18,7 @@ import dom.ManagerCategoria;
  * @author camil
  *
  */
-
+@Transactional
 @Path("categoria")
 public class ServiceCategoria {
 
@@ -24,38 +27,34 @@ public class ServiceCategoria {
 	@Path("Listar")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public String Listar() {
+	public List<Categoria> Listar() {
 		List <Categoria> categorias = pMC.listarCategorias();
-		String aux="";
-		for (int i = 0; i < categorias.size(); i++) {
-			aux += categorias.get(i).getIdCategoria().toString()+" "+ categorias.get(i).getNombreCategoria() ; 
-		}
-		return aux;
+		return categorias;
 	}
 
 	@Path("ByID")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public String getCategoriaById(@QueryParam("id") String id) {
+	public Categoria getCategoriaById(@QueryParam("id") String id) {
 		Categoria c = pMC.findById(Integer.parseInt(id));
 		if(c != null) 
-			return c.getNombreCategoria();
+			return c;
 		else 
-			return "no se obtuvo nada";
+			return null;
 	}
 	
 	@Path("ByName")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public String getCategoriaByName(@QueryParam("name") String name) {
+	public Categoria getCategoriaByName(@QueryParam("name") String name) {
 		Categoria c = pMC.findByName(name);
 		if(c != null) 
-			return c.getNombreCategoria();
+			return c;
 		else 
-			return "no se obtuvo nada";
+			return null;
 	}
 	
-	@GET
+	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("Add")
 	public String addCategoria(@QueryParam("name") String name) {
@@ -69,10 +68,12 @@ public class ServiceCategoria {
 	@Path("Update")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public String upDateCategoria(@QueryParam("name") String name) {
-		Categoria c = new Categoria(name);
+	public String upDateCategoria(@QueryParam("id") int id, @QueryParam("name") String nombre) {
+		Categoria c = new Categoria();
+		c.setIdCategoria(id);
+		c.setNombreC(nombre);
 		if(pMC.updateCategoria(c)) 
-			return name+ " update";
+			return " update";
 		else 
 			return "sin cambios";
 	}
@@ -80,10 +81,12 @@ public class ServiceCategoria {
 	@Path("delete")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public String deleteCategoria(@QueryParam("name") String name) {
-		Categoria c = new Categoria(name);
+	public String deleteCategoria(@QueryParam("id") int id, @QueryParam("name") String nombre) {
+		Categoria c = new Categoria();
+		c.setIdCategoria(id);
+		c.setNombreC(nombre);
 		if(pMC.borrarCategoria(c)) 
-			return name+" eliminado";
+			return " eliminado";
 		else 
 			return "sin cambios";
 	}

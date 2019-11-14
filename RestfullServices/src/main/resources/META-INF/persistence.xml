@@ -4,10 +4,17 @@
   version="2.1">
  
   <persistence-unit name="database" >
- 	<class>dom.Categoria</class>
+ 	<class>model.Calendario</class>
+ 	<class>model.Categoria</class>
+ 	<class>model.Evento</class>
+ 	<class>model.Noticia</class>
+ 	<class>model.Persona</class>
+ 	<class>model.ReporteBug</class>
+ 	<class>model.Sugerencia</class>
+ 	<class>model.TipoPersona</class>
     <properties>
       <!-- Configuring JDBC properties -->
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/EventosUptc" />
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/EventosUptc?serverTimezone=UTC" />
       <property name="javax.persistence.jdbc.user" value="EventosAdminConnect" />
       <property name="javax.persistence.jdbc.password" value="uptc1234" />
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
