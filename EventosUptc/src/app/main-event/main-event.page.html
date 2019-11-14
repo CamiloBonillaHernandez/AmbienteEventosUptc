@@ -1,9 +1,12 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>MainEvent</ion-title>
+    <ion-title>Main Event</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+    <h2>Llamado servicios</h2>
+    <input value="Consultar eVENTOS" type="submit" (click)="consultarEventos()" />
+    <pre>{{ listaEventos | json }}</pre>
+ 
 </ion-content>

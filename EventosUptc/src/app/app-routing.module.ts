@@ -7,6 +7,8 @@ const routes: Routes = [
   { path: 'main-event', loadChildren: './main-event/main-event.module#MainEventPageModule' },
   { path: 'single-event', loadChildren: './single-event/single-event.module#SingleEventPageModule' },
   { path: 'calendar', loadChildren: './calendar/calendar.module#CalendarPageModule' },
+  { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
+  { path: 'user-view', loadChildren: './user-view/user-view.module#UserViewPageModule' },
 ];
 
 @NgModule({

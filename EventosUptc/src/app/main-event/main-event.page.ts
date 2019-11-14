@@ -1,4 +1,6 @@
+import { Evento } from './../Modelos/Evento';
 import { Component, OnInit } from '@angular/core';
+import {Consultas} from '../Servicios/Consultas/consultas.service'
 
 @Component({
   selector: 'app-main-event',
@@ -7,9 +9,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainEventPage implements OnInit {
 
-  constructor() { }
+  public listaEventos : Evento[];
+
+  constructor(private consultas: Consultas) { }
 
   ngOnInit() {
   }
 
+
+  public consultarEventos(){
+       this.consultas.ListarEventos().subscribe(
+      eventos => {
+          this.listaEventos = eventos;
+        },
+        error => {
+          console.log(error);
+        } 
+    );    
+    console.log('resultado servicio Eventos ' + this.listaEventos);
+  }
 }
