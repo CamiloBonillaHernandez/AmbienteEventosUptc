@@ -10,13 +10,38 @@
 </ion-header>
 
 <ion-content>
-  <div class="photo">
-    <img src="../../assets/images/logo.JPG">
-  </div>
+  <ion-grid>
+    <ion-row justify-content-center>
+      <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+        <ion-card>
+          <img src="../../assets/images/logo.JPG"  routerLink='/main-event' />
+          <ion-card-header>
+            <ion-card-title>EVENTOS</ion-card-title>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row justify-content-center>
+      <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+        <img src="../../assets/images/logo.JPG"  routerLink='/noticias' />
+        <ion-card-header>
+          <ion-card-title>NOTICIAS</ion-card-title>
+        </ion-card-header>
+      </ion-col>
+    </ion-row>
+    <ion-row justify-content-center>
+      <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+        <img src="../../assets/images/logo.JPG"  routerLink='/calendar' />
+        <ion-card-header>
+          <ion-card-title>CALENDARIO</ion-card-title>
+        </ion-card-header>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
 
-<ion-footer>
-  <ion-toolbar>
-    <ion-title>Primera Version App Movil</ion-title>
+<ion-footer >
+  <ion-toolbar >
+    <ion-title >Primera Version App Movil</ion-title>
   </ion-toolbar>
 </ion-footer>

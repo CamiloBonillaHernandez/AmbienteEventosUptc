@@ -9,6 +9,7 @@ const routes: Routes = [
   { path: 'calendar', loadChildren: './calendar/calendar.module#CalendarPageModule' },
   { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
   { path: 'user-view', loadChildren: './user-view/user-view.module#UserViewPageModule' },
+  { path: 'noticias', loadChildren: './noticias/noticias.module#NoticiasPageModule' },
 ];
 
 @NgModule({

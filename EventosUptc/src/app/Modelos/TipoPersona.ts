@@ -1,4 +1,4 @@
-export interface TipoPersona{
+export class TipoPersona{
     idTipoPersona : number | string;
     tituloTp : string;    
 }

@@ -1,5 +1,5 @@
 import { TipoPersona } from './TipoPersona';
-export interface Persona{
+export class Persona{
     idPersona : number | string;
     contrasenia : string;
     nombreP : string;

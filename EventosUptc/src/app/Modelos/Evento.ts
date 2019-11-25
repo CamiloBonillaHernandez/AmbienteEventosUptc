@@ -1,6 +1,6 @@
 import { Persona } from './Persona';
 import { Categoria } from './Categoria';
-export interface Evento{
+export class Evento{
     idEvento : number | string;
     tituloE: string;
     descripcionE : string;

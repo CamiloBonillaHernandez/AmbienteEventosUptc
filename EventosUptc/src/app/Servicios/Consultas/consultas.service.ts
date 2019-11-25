@@ -25,6 +25,4 @@ export class Consultas extends AbstractService {
     return this.get<Evento[]>("/RestfullServices", "/Evento/Listar",
     {});
   }
-
-
 }
